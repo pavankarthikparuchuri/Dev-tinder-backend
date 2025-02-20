@@ -19,3 +19,4 @@
 - Middleware are intermediate functions that gets executed before handling the request
 - we can handle authorization using middlewares and once the user gets authorized we can use next() to call the corresponding matching handlers.
 - app.all and app.use are mostly same, but app.use matches subpaths like /user/\* but app.all matches exact path and app.use is used for middlewares generally and app.all is generally used for route handling.
+- parameters for handlers, (req, res), (req, res, next), (err, req, res, next)
