@@ -20,3 +20,20 @@
 - we can handle authorization using middlewares and once the user gets authorized we can use next() to call the corresponding matching handlers.
 - app.all and app.use are mostly same, but app.use matches subpaths like /user/\* but app.all matches exact path and app.use is used for middlewares generally and app.all is generally used for route handling.
 - parameters for handlers, (req, res), (req, res, next), (err, req, res, next)
+
+# Mongoose
+
+- To connect our nodejs application to the cluster we would be using mongoose.
+
+# Schema
+
+- It is an identity for the documents
+- It is like a heading, tells what can be stored inside a collection
+- Schema maps to the collection and defines the shape of the documents within that collection
+- This gives the structure to the collection
+
+# Model
+
+- To use our schema definiton, we need to convert our schema to model
+- To do so, we need to write mongoose.model(modelName, schemaName)
+- model can be considered as a class through which we can create new instances.
