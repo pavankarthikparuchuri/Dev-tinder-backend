@@ -37,3 +37,24 @@
 - To use our schema definiton, we need to convert our schema to model
 - To do so, we need to write mongoose.model(modelName, schemaName)
 - model can be considered as a class through which we can create new instances.
+
+# JSON vs Javascript Object
+
+- JSON is a format in which the data is stored, javascript object is a datastructure in javascript.
+- JSON is of type string(text) format and Javascript object is of Javascript object type
+- syntax rules:- must use double quotes in JSON for keys and string, and can use single/double/no quotes for keys
+- JSON.parse() is used to convert JSON to js object and JSON.stringify is used to convert JS object to JSON.
+- JSON doesnot support comments and functions.
+- JSON is used for apis, files and data exchange and JSobjects are user for logic and manipulation.
+- {"name": "Alice", "age": 25} --> JSON, {name: 'Alice', age: 25} --> JS Object
+- JSON is only meant for data representation.
+
+# How to fetch the payload coming from the client at the server.
+
+- We will mostly be using JSON format to send the data and recieve data.
+- when the client is sending the data in json format and the server is not able to read that json data.
+- we need to use a middleware to read that json data and convert it into a javascript object and give it to us.
+- express provides a middleware called express.json middleware
+- inorder to use this middleware we need to to write app.use(express.json())
+- if we dont mention any route then the middleware will be called for all the routes.
+- This express.json reads the JSON converts it into a JS object and adds that JS object back to the req.body
