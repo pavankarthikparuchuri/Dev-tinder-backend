@@ -59,3 +59,7 @@
 - if we dont mention any route then the middleware will be called for all the routes.
 - This express.json reads the JSON converts it into a JS object and adds that JS object back to the req.body
 - only the fields present in the scehema will be added/updated, adding fields not present in the schema won't get reflected into the db.
+
+# Schema types
+
+- required, unique, min, max, minLength, maxLength, validate, timestamps, trim, default, lowercase
