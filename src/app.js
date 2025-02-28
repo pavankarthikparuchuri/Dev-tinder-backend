@@ -1,11 +1,13 @@
 const express = require("express");
 const { connectDB } = require("./config/database");
 const UserModel = require("./models/user");
-
 const app = express(); //ceating an express application instance.
 
 app.use(express.json());
 app.post("/signup", async (req, res) => {
+  //validation of data
+  // encrypt the password
+  //creating a new instance of the user model
   try {
     //creating a new instance of the UserModel
     const user = new UserModel(req.body);
