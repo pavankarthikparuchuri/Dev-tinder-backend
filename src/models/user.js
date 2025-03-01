@@ -28,7 +28,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
       validate(value) {
-        if (validator.isStrongPassword(value)) {
+        if (!validator.isStrongPassword(value)) {
           //{ minLength: 8, minLowercase: 1, minUppercase: 1, minNumbers: 1, minSymbols: 1, returnScore: false, pointsPerUnique: 1, pointsPerRepeat: 0.5, pointsForContainingLower: 10, pointsForContainingUpper: 10, pointsForContainingNumber: 10, pointsForContainingSymbol: 10 }
           throw new Error("not strong password " + value);
         }
@@ -51,7 +51,7 @@ const userSchema = new mongoose.Schema(
       type: String,
       default: "https://geographyandyou.com/images/user-profile.png",
       validate(value) {
-        if (validator.isURL(value)) {
+        if (!validator.isURL(value)) {
           throw new Error("not a valid url");
         }
       },
