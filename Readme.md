@@ -63,3 +63,38 @@
 # Schema types
 
 - required, unique, min, max, minLength, maxLength, validate, timestamps, trim, default, lowercase
+
+# validator package can be used to sanitize and validate strings
+
+# we can also add api level validations
+
+# to encrypt the passwords in the database we can use bcrypt
+
+# JWT token authentication
+
+- json web token
+
+- when user tries to login, the server validates the credentials and generates a jwt token and puts it in a cookie and sends back.
+- once the client receives the cookies, the browser stores the cookie and this cookie will be used to validate any further requests to check whether the requests are from an authorised source and processes the request and sends the response back.
+- if the token gets expired the validation fails and user will be redirected to login page
+- jwt can be considered as a encrypted hash which has secrets embedded in it
+- jwt has three part header, payload, signature
+- we can use jsonwebtoken to create jwt tokens, verify them
+- similar to bcrypt.hash, compare here we have sign, verify
+- jwt.sign(data that we want to embed in the hash, secret key)
+
+# Auth middleware
+
+- we can write a middle to handle authentication and we can attach the user info the req object so that the next handler can utilize it if wanted.
+
+# token expiration
+
+- we can add expiresIn key to expire a token while creating the jwt.
+- example
+  - const token = jwt.sign({ \_id: encryptedPassword.\_id }, "DEV@Tinder$790", {
+    expiresIn: "7d",
+    });
+
+# Mongoose schema methods
+
+- we can write methods inside the schema and we can use those methods for the document element.

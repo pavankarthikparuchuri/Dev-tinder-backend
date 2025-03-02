@@ -5,8 +5,13 @@ const app = express(); //ceating an express application instance.
 const { validateSignUpData } = require("./utils/validation");
 const bcrypt = require("bcrypt");
 const validator = require("validator");
+const cookieParser = require("cookie-parser");
+const jwt = require("jsonwebtoken");
+const { userAuth } = require("./middlewares/authMiddleware");
 
 app.use(express.json());
+app.use(cookieParser());
+
 app.post("/signup", async (req, res) => {
   //validation of data
   // encrypt the password
@@ -35,14 +40,21 @@ app.post("/login", async (req, res) => {
   try {
     const { emailId, password } = req.body;
     if (!validator.isEmail(emailId)) {
-      throw new Error("invalid email id");
+      throw new Error("invalid credentials");
     }
     const encryptedPassword = await UserModel.findOne({ emailId: emailId });
     if (!encryptedPassword) {
       throw new Error("Invalid Credentials");
     }
-    const isPasswordValid = bcrypt.compare(password, encryptedPassword.emailId);
+    const isPasswordValid = await encryptedPassword.validatePassword(password);
     if (isPasswordValid) {
+      // create a jwt token
+      // add the token to cookie and send the response back to the user
+      const token = encryptedPassword.getJWT();
+      res.cookie("token", token, {
+        expires: new Date(Date.now() + 900000),
+        httpOnly: true,
+      });
       res.status(200).send("login successful");
     } else {
       throw new Error("Invalid Credentials");
@@ -121,6 +133,21 @@ app.patch("/user/:userId", async (req, res) => {
   } catch (err) {
     res.status(400).send("something went wrong " + err.message);
   }
+});
+
+app.get("/profile", userAuth, async (req, res) => {
+  try {
+    const { user } = req;
+    res.send(user);
+  } catch (err) {
+    res.status(400).send("something went wrong " + err.message);
+  }
+});
+
+app.post("/sendConnectionRequest", userAuth, async (req, res) => {
+  console.log("sending a connection request");
+  const { user } = req;
+  res.send("Hey " + user.firstName + "!");
 });
 connectDB()
   .then(() => {
