@@ -98,3 +98,38 @@
 # Mongoose schema methods
 
 - we can write methods inside the schema and we can use those methods for the document element.
+
+# API List
+
+## authRouter
+
+- POST /signup
+- POST /login
+- POST /logout
+
+## profileRouter
+
+- GET /profile/view
+- PATCH /profile/edit
+- PATCH /profile/password
+
+## connectionRequestRouter
+
+- POST /request/send/interested/:userid
+- POST /request/send/ignored/:userid
+- POST /request/review/accepted/:requestId
+- POST /request/review/rejected/:requestId
+
+## userRouter
+
+- GET /user/connections
+- GET /user/requests
+- GET /user/feed - Gets you the profiles of other users in the platform
+  status: ignore, interested, accepted, rejected
+
+# currently we are handling all the apis in a single file, now we wil be creating router which will route the requests to the specified path.
+
+- we will be using express router to create a router.
+- using router we can manage our apis effeciently by grouping apis to different routers
+- we will be grouping multiple apis to multiple routers and the routers would be handling the routes
+- routers are created to manage routes
