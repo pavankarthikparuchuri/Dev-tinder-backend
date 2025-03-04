@@ -133,3 +133,12 @@
 - using router we can manage our apis effeciently by grouping apis to different routers
 - we will be grouping multiple apis to multiple routers and the routers would be handling the routes
 - routers are created to manage routes
+
+# we can also chain the responses
+
+- example
+- res
+  .cookie("token", null, {
+  expires: new Date(Date.now()),
+  })
+  .send("logout successful");
