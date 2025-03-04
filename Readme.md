@@ -142,3 +142,34 @@
   expires: new Date(Date.now()),
   })
   .send("logout successful");
+
+# Similar to schema methods, we can also create schema pre
+
+- pre is kind of like a middleware
+
+- connectionSchema.pre("save", function(){
+  const connectionRequest = this;
+  }), here we have created a middleware using pre which will be called when we try to save a model instance
+
+- the above method will be called pre save
+- we can use this pre for logging and monitoring
+
+# Indexing
+
+- indexing helps in optimizing querying.
+- having indexing on the attributes helps in fetching those results faster
+- if there are millions of records and lets say we are fetching based on first name without indexing it takes so much time than fetching when there is indexing
+- when we add unique as a schema type to any attribute, then mongodb automatically creates indexing for that
+
+- you can create mongo db indexes using schema type options
+
+  - index:- boolean, whether to define an index on this property
+  - unique:- boolean, whether to define a unique index on this property
+  - sparse:- boolean, whether to define a sparse index on this property
+
+- when we want the query results to be faster for a set of attributes, then we should be doing compound indexing.
+- connectionSchema.index({ fromUserId: 1, toUserId: 1 }); this will make the queries having requests with body only fromuserid and touserid requests faster.
+
+# logical db queries
+
+- $and, $or, $not, $not

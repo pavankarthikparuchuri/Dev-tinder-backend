@@ -45,7 +45,7 @@ authRouter.post("/login", async (req, res) => {
       // add the token to cookie and send the response back to the user
       const token = encryptedPassword.getJWT();
       res.cookie("token", token, {
-        expires: new Date(Date.now() + 900000),
+        expires: new Date(Date.now() + 60 * 60 * 1000),
         httpOnly: true,
       });
       res.status(200).send("login successful");
