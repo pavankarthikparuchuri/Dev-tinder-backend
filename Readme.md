@@ -122,8 +122,8 @@
 
 ## userRouter
 
+- GET /user/requests/received
 - GET /user/connections
-- GET /user/requests
 - GET /user/feed - Gets you the profiles of other users in the platform
   status: ignore, interested, accepted, rejected
 
@@ -173,3 +173,14 @@
 # logical db queries
 
 - $and, $or, $not, $not
+
+# Thought process while creating post and get apis
+
+- we should validate the data before adding it to the database in post
+- we should make sure that there is no data leak in get apis
+
+# populate and ref
+
+- ref is used to link to collections
+- in the schema we can add ref property to the attribute and the value for this ref property should be a Model name
+- populate is used to fetch the data from the referenced collection
