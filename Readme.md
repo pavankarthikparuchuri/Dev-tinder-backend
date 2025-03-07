@@ -184,3 +184,12 @@
 - ref is used to link to collections
 - in the schema we can add ref property to the attribute and the value for this ref property should be a Model name
 - populate is used to fetch the data from the referenced collection
+
+# Pagination
+
+- /feed?page=1&limit=10 => first 10 users 1-10 => .skip(0) & .limit(10)
+- /feed?page=2&limit=10 => 11-20 => .skip(1 \* 10) & limit(10)
+- /feed?page=3&limit=10 => 21-30 => .skip(2\*10) & .limit(10)
+
+- there are two functions in mongodb which are helpful to achieve this those are skip and limit
+- skip to skip the documents and limit tells how many documents are needed
