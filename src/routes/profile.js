@@ -11,7 +11,7 @@ const bcrypt = require("bcrypt");
 profileRouter.get("/profile/view", userAuth, async (req, res) => {
   try {
     const { user } = req;
-    res.send(user);
+    res.status(200).json(user);
   } catch (err) {
     res.status(400).send("something went wrong " + err.message);
   }

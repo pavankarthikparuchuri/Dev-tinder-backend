@@ -45,8 +45,7 @@ authRouter.post("/login", async (req, res) => {
       // add the token to cookie and send the response back to the user
       const token = encryptedPassword.getJWT();
       res.cookie("token", token, {
-        expires: new Date(Date.now() + 60 * 60 * 1000),
-        httpOnly: true,
+        expires: new Date(Date.now() + 8 * 3600000),
       });
       res.status(200).json(encryptedPassword);
     } else {
@@ -59,12 +58,10 @@ authRouter.post("/login", async (req, res) => {
 
 authRouter.post("/logout", (req, res) => {
   try {
-    // res.clearCookie("token");
-    res
-      .cookie("token", null, {
-        expires: new Date(Date.now()),
-      })
-      .send("logout successful");
+    res.cookie("token", null, {
+      expires: new Date(Date.now()),
+    });
+    res.send("Logout Successful!!");
   } catch (err) {
     res.status(400).send("Something went wrong " + err.message);
   }
