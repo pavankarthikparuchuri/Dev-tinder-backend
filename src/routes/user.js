@@ -15,7 +15,7 @@ userRouter.get("/user/requests/received", userAuth, async (req, res) => {
       })
       .populate(
         "fromUserId",
-        "firstName lastName photoUrl age gender about skill"
+        "firstName lastName photoUrl age gender about skills"
       );
     res.status(200).json({
       message: `${loggedInUser.firstName} - requests`,
@@ -42,8 +42,14 @@ userRouter.get("/user/connections", userAuth, async (req, res) => {
           },
         ],
       })
-      .populate("fromUserId", "firstName lastName skills about age ")
-      .populate("toUserId", "firstName lastName skills about age ");
+      .populate(
+        "fromUserId",
+        "firstName lastName photoUrl age gender about skills"
+      )
+      .populate(
+        "toUserId",
+        "firstName lastName photoUrl age gender about skills"
+      );
     const finalData = data.map(({ fromUserId, toUserId }) =>
       fromUserId._id.equals(loggedInUser._id) ? toUserId : fromUserId
     );
@@ -81,7 +87,7 @@ userRouter.get("/user/feed", userAuth, async (req, res) => {
     );
     existingIds.push(loggedInUser._id.toString());
     let data = await UserModel.find({ _id: { $nin: existingIds } })
-      .select("firstName lastName skills about age ")
+      .select("firstName lastName age gender photoUrl about skills")
       .skip((pageNum - 1) * limit)
       .limit(limit);
     res.status(200).json({
