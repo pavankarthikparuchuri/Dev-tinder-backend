@@ -4,7 +4,6 @@ const {
   validateProfileEditData,
   validateCurrentPassword,
 } = require("../utils/validation");
-const UserModel = require("../models/user");
 const profileRouter = express.Router();
 const bcrypt = require("bcrypt");
 
