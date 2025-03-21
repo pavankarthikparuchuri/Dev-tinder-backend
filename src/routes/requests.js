@@ -4,6 +4,7 @@ const { userAuth } = require("../middlewares/authMiddleware");
 const UserModel = require("../models/user");
 const ConnectionModel = require("../models/connectionRequest");
 const mongoose = require("mongoose");
+const sendEmail = require("../utils/sendemail");
 
 requestsRouter.post(
   "/request/send/:status/:toUserId",
@@ -40,11 +41,16 @@ requestsRouter.post(
         status: status,
       });
       const data = await ConnectionRequest.save();
+      await sendEmail.run(
+        "You got a new friend request",
+        `${user.firstName} - ${status} - ${searchUserID.firstName}`
+      );
       res.json({
         message: `${user.firstName} - ${status} - ${searchUserID.firstName}`,
         data: data,
       });
     } catch (err) {
+      console.log(err, "::err");
       res.status(400).send("something went wrong " + err.message);
     }
   }

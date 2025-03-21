@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require("express");
 const { connectDB } = require("./config/database");
 const app = express(); //ceating an express application instance.
@@ -24,7 +25,7 @@ app.use("/", userRouter);
 connectDB()
   .then(() => {
     console.log("Database connection established...");
-    app.listen(7777, () => {
+    app.listen(process.env.PORT, () => {
       console.log("Server is successfully listening on port 7777...");
     });
   })
