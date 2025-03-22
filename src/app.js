@@ -5,6 +5,8 @@ const app = express(); //ceating an express application instance.
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 
+require("./utils/cronjob");
+
 app.use(express.json());
 app.use(cookieParser());
 app.use(
