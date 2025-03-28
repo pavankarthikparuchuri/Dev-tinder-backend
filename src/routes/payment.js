@@ -78,7 +78,7 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
     user.isPremium = true;
     user.memberShipType = payment.notes.membershipType;
     await user.save();
-    res.send(200).json({ msg: "webhook recieved successfully" });
+    res.status(200).json({ msg: "webhook recieved successfully" });
   } catch (err) {
     console.log(err.message, "::err");
     res.status(500).json({ msg: err.message });
