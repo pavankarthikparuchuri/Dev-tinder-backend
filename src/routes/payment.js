@@ -58,7 +58,10 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
       webhookSignature,
       process.env.RAZORPAY_WEBHOOK_SIGNATURE
     );
-    if (!isWebhookValid) res.status(400).json({ msg: "webhook not valid" });
+    if (!isWebhookValid) {
+      console.log("webhook not valid");
+      res.status(400).json({ msg: "webhook not valid" });
+    }
 
     //update my payment status in DB
     //update the user as premium
@@ -76,6 +79,7 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
     await user.save();
     res.send(200).json({ msg: "webhook recieved successfully" });
   } catch (err) {
+    console.log(err.message, "::err");
     res.status(500).json({ msg: err.message });
   }
 });
