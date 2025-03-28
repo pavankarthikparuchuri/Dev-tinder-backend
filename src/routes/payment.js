@@ -67,7 +67,7 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
     //update the user as premium
     //return success response to the razorpay
     const { paymentDetails } = req.body.payload.payment.entity;
-    console.log(req.body);
+    console.log(req.body.payload.payment.entity);
     const payment = await Payment.findOne({
       orderId: paymentDetails.order_id,
     });
