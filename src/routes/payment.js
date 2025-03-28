@@ -60,7 +60,7 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
     );
     if (!isWebhookValid) {
       console.log("webhook not valid");
-      res.status(400).json({ msg: "webhook not valid" });
+      return res.status(400).json({ msg: "webhook not valid" });
     }
 
     //update my payment status in DB
@@ -78,10 +78,22 @@ paymentRouter.post("/payment/webhook", async (req, res) => {
     user.isPremium = true;
     user.memberShipType = payment.notes.membershipType;
     await user.save();
-    res.status(200).json({ msg: "webhook recieved successfully" });
+    return res.status(200).json({ msg: "webhook recieved successfully" });
   } catch (err) {
     console.log(err.message, "::err");
-    res.status(500).json({ msg: err.message });
+    return res.status(500).json({ msg: err.message });
+  }
+});
+
+paymentRouter.get("/premium/verify", userAuth, async (req, res) => {
+  try {
+    const user = req.user;
+    if (user.isPremium) {
+      return res.status(200).json({ isPremium: true });
+    }
+    return res.status(200).json({ isPremium: false });
+  } catch (err) {
+    res.status(400).json({ msg: "something went wrong!" });
   }
 });
 paymentRouter.post("");
